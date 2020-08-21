@@ -5,6 +5,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
     create_table :users do |t|
       ## Database authenticatable    
       t.string :name,               null: false
+      # この記述により、マイグレーション実行時に「nameカラム」に空の値を許可しないNOT NULL制約で作成されます。
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
