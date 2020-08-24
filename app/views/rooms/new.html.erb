@@ -1,0 +1,44 @@
+<div class='chat-room-form'>
+  <h1>新規チャットルーム</h1>
+  <%=form_with model: @room, local: true do |f|%>
+    <div class='chat-room-form__field'>
+      <div class='chat-room-form__field--left'>
+        <%= f.label :チャットルーム名, class: 'chat-room-form__label'%>
+      </div>
+      <div class='chat-room-form__field--right'>
+        <%= f.text_field :name, class: 'chat__room_name chat-room-form__input', placeholder: 'チャットルーム名を入力してください'%>
+      </div>
+    </div>
+    <div class='chat-room-form__field'>
+    </div>
+    <div class='chat-room-form__field'>
+      <div class='chat-room-form__field--left'>
+        <label class='chat-room-form__label' for='chat_room_チャットメンバー'>チャットメンバー</label>
+      </div>
+      <div class='chat-room-form__field--right'>
+        <select name="room[user_ids][]">
+         <option value="">チャットするユーザーを選択してください</option>
+          <% User.all.where.not(id: current_user.id).each do|user| %>
+          <%# モデル名.where("条件")と記述すると条件に一致したレコードを
+          配列として取得できる。モデル名.where.not("条件")は条件に一致したレコード
+          以外の値を配列で取得できる %>
+            <option value=<%=user.id%>><%= user.name %></option>
+          <% end %>
+        </select>
+        <input name="room[user_ids][]" type="hidden" value=<%=current_user.id%>>
+        <%# ログイン中のユーザーidをparamsに含める事ができる
+        type="hidden"とtype属性を指定して画面上に表示されないinput要素
+        を作成。name属性にroom[user_ids][]を指定し、value属性にcurrent_user.idを指定する事で
+        room[user_ids][]をキーに「current user.id]をコントローラーへ送信できる。
+        {"room[user_ids][]" => "選択したユーザーのid, 現在ログインしているユーザーのid"}
+        上記の記述でparamsは二種類のユーザーidを格納できる %>
+      </div>
+    </div>
+    <div class='chat-room-form__field'>
+      <div class='chat-room-form__field--left'></div>
+      <div class='chat-room-form__field--right'>
+        <%= f.submit class: 'chat-room-form__action-btn'%>
+      </div>
+    </div>
+  <% end %>
+</div>
