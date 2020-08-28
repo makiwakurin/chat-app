@@ -4,6 +4,6 @@ class Room < ApplicationRecord
   has_many :users, through: :room_users
   # 一つの部屋には複数のuserがいて。経由してroom_usersで管理する
   has_many :messages
-  validates :name, presence:true
+  validates :name, presence: true
   # ルーム名が存在（presence)している場合のみ作成可（true)という意味
 end
