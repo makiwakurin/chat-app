@@ -14,4 +14,5 @@ class User < ApplicationRecord
   # 一人のuserは一人のユーザーに紐づくroomを複数持っている
   has_many :rooms, through: :room_users
   # 一人userは複数のroomwをもち。経由してroom_usersテーブルで管理する
+  has_many :messages
 end
